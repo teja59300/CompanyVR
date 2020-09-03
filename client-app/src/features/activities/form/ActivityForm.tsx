@@ -3,18 +3,21 @@ import { Segment, Form, Button } from 'semantic-ui-react';
 import { IActivity } from '../../../app/models/activity';
 import {v4 as uuid} from 'uuid';
 
+
 interface IPorps {
     setEditMode :(editMode : boolean) => void;
     activity:IActivity;
     createActivity : (activity : IActivity) => void;
     editActivity : (activity : IActivity) => void;
+    submitting:boolean;
 }
 
 export const ActivityForm: React.FC<IPorps> = ({
             setEditMode,
             activity:initialFormState,
             createActivity,
-            editActivity
+            editActivity,
+            submitting
             }) => {
 
     const initializeForm = () => {
@@ -105,7 +108,7 @@ export const ActivityForm: React.FC<IPorps> = ({
                      placeholder='Status'
                      value = {activity.status}
                 />
-                <Button floated='right' positive type='submit' content='submit'/>
+                <Button loading={submitting} floated='right' positive type='submit' content='submit'/>
                 <Button onClick={() => setEditMode(false)} floated='right'  type='button' content='cancel'/>
             </Form>
         </Segment>
